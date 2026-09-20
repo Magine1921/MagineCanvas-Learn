@@ -1,0 +1,3054 @@
+/* Import TailwindCSS v4 */
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, monospace;
+  --font-heading: "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Infinite-canvas adaptive performance mode. These rules only remove costly
+   decoration; dimensions, handles and editing hit targets remain unchanged. */
+.mc-canvas-shell .react-flow__node {
+  contain: layout style;
+}
+
+.mc-canvas-shell[data-mc-gpu-lite='true'] .react-flow__node [class*='backdrop-blur'],
+.mc-canvas-shell[data-mc-gpu-lite='true'] .react-flow__node .mc-node-frost-header,
+.mc-canvas-shell[data-mc-gpu-lite='true'] .react-flow__node .mc-node-glass-shell,
+.mc-canvas-shell[data-mc-gpu-lite='true'] .react-flow__node .mc-node-compact-glass {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.mc-canvas-shell[data-mc-performance-profile='dense'] .react-flow__node .mc-node-generating-pulse,
+.mc-canvas-shell[data-mc-performance-profile='dense'] .react-flow__node [class*='animate-pulse'] {
+  animation: none !important;
+}
+
+.mc-canvas-shell[data-mc-performance-profile='dense'] .react-flow__edge {
+  shape-rendering: optimizeSpeed;
+}
+
+:root {
+  --background: #030303;
+  --foreground: #f4f4f5;
+  --card: #1c1c1d;
+  --card-foreground: #f4f4f5;
+  --popover: #1c1c1d;
+  --popover-foreground: #f4f4f5;
+  --primary: #e5e7eb;
+  --primary-foreground: #09090b;
+  --secondary: #232325;
+  --secondary-foreground: #eef7ff;
+  --muted: #202022;
+  --muted-foreground: #a1a1aa;
+  --accent: #242427;
+  --accent-foreground: #eef7ff;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #fb923c;
+  --chart-1: #f4f4f5;
+  --chart-2: #fb923c;
+  --chart-3: #d6d3d1;
+  --chart-4: #f97316;
+  --chart-5: #22c55e;
+  --radius: 0.5rem;
+  --sidebar: #090909;
+  --sidebar-foreground: #f4f4f5;
+  --sidebar-primary: #e5e7eb;
+  --sidebar-primary-foreground: #09090b;
+  --sidebar-accent: #242427;
+  --sidebar-accent-foreground: #eef7ff;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #fb923c;
+  /* Motion：入场/出场时长对齐 60Hz（N 帧 = N/60 s）；JS 用 src/lib/motion.ts 的 mcF(N) */
+  --mc-1f: calc(1s / 60);
+  --mc-ease-pop: cubic-bezier(0.22, 1, 0.36, 1);
+  --mc-ease-press: cubic-bezier(0.2, 0, 0, 1);
+  --mc-dur-5f: calc(5 * var(--mc-1f));
+  --mc-dur-9f: calc(9 * var(--mc-1f));
+  --mc-dur-10f: calc(10 * var(--mc-1f));
+  --mc-dur-11f: calc(11 * var(--mc-1f));
+  --mc-dur-12f: calc(12 * var(--mc-1f));
+  --mc-dur-13f: calc(13 * var(--mc-1f));
+  --mc-dur-14f: calc(14 * var(--mc-1f));
+  --mc-dur-22f: calc(22 * var(--mc-1f));
+  --mc-dur-29f: calc(29 * var(--mc-1f));
+  --mc-dur-30f: calc(30 * var(--mc-1f));
+  --mc-dur-34f: calc(34 * var(--mc-1f));
+  --mc-dur-42f: calc(42 * var(--mc-1f));
+  --mc-dur-47f: calc(47 * var(--mc-1f));
+  --mc-dur-87f: calc(87 * var(--mc-1f));
+  --mc-dur-120f: calc(120 * var(--mc-1f));
+}
+
+.dark {
+  --background: #030303;
+  --foreground: #f4f4f5;
+  --card: #1c1c1d;
+  --card-foreground: #f4f4f5;
+  --popover: #1c1c1d;
+  --popover-foreground: #f4f4f5;
+  --primary: #e5e7eb;
+  --primary-foreground: #09090b;
+  --secondary: #232325;
+  --secondary-foreground: #eef7ff;
+  --muted: #202022;
+  --muted-foreground: #a1a1aa;
+  --accent: #242427;
+  --accent-foreground: #eef7ff;
+  --destructive: #ef4444;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #fb923c;
+  --chart-1: #f4f4f5;
+  --chart-2: #fb923c;
+  --chart-3: #d6d3d1;
+  --chart-4: #f97316;
+  --chart-5: #22c55e;
+  --radius: 0.5rem;
+  --sidebar: #090909;
+  --sidebar-foreground: #f4f4f5;
+  --sidebar-primary: #e5e7eb;
+  --sidebar-primary-foreground: #09090b;
+  --sidebar-accent: #242427;
+  --sidebar-accent-foreground: #eef7ff;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #fb923c;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "liga" 1, "calt" 1;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Canvas node toolbar: preserve access to every item on short or high-DPI displays. */
+.mc-canvas-sidebar {
+  max-height: calc(100vh - 132px);
+  max-height: calc(100dvh - 132px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mc-canvas-sidebar::-webkit-scrollbar {
+  width: 3px;
+}
+
+.mc-canvas-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.mc-canvas-sidebar-item {
+  flex: 0 0 auto;
+}
+
+.mc-canvas-sidebar-icon > svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-height: 1040px) {
+  .mc-canvas-sidebar {
+    top: 100px;
+    max-height: calc(100vh - 112px);
+    max-height: calc(100dvh - 112px);
+    width: 70px;
+    padding: 6px;
+    border-radius: 16px;
+  }
+
+  .mc-canvas-sidebar-item {
+    gap: 1px;
+    padding-block: 3px;
+    border-radius: 10px;
+    font-size: 10px;
+  }
+
+  .mc-canvas-sidebar-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mc-canvas-sidebar-icon > svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-height: 800px) {
+  .mc-canvas-sidebar {
+    top: 88px;
+    left: 16px;
+    max-height: calc(100vh - 100px);
+    max-height: calc(100dvh - 100px);
+    width: 64px;
+    padding: 5px;
+    border-radius: 14px;
+  }
+
+  .mc-canvas-sidebar-item {
+    gap: 1px;
+    padding-block: 2px;
+    border-radius: 9px;
+    font-size: 9px;
+  }
+
+  .mc-canvas-sidebar-icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  .mc-canvas-sidebar-icon > svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+
+@media (max-height: 640px) {
+  .mc-canvas-sidebar {
+    top: 88px;
+    left: 12px;
+    display: grid;
+    width: 124px;
+    max-height: calc(100vh - 100px);
+    max-height: calc(100dvh - 100px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: max-content;
+    align-content: start;
+    gap: 2px;
+    padding: 6px;
+  }
+
+  .mc-canvas-sidebar-item {
+    min-width: 0;
+  }
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slide-in-from-left {
+  animation: slide-in-from-left var(--mc-dur-12f) ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in var(--mc-dur-9f) ease-out;
+}
+
+/* 节点生成成功柔光闪烁 */
+@keyframes node-success-glow {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(255,255,255,0.12), 0 0 16px rgba(255,255,255,0.06), inset 0 0 6px rgba(255,255,255,0.04);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(255,255,255,0.26), 0 0 36px rgba(255,255,255,0.14), inset 0 0 12px rgba(255,255,255,0.08);
+  }
+}
+.mc-node-success-glow {
+  animation: node-success-glow 2.4s ease-in-out infinite;
+}
+
+/* React Flow customization */
+.mc-react-flow {
+  direction: ltr;
+}
+
+/*
+ * React Flow structural fallback.
+ * Keep positioning stable if Next development HMR briefly unloads a package
+ * stylesheet while replacing the canvas module.
+ */
+.mc-react-flow .react-flow__container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mc-react-flow .react-flow__pane {
+  z-index: 1;
+}
+
+.mc-react-flow .react-flow__viewport {
+  z-index: 2;
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+
+.mc-react-flow .react-flow__renderer {
+  z-index: 4;
+}
+
+.mc-react-flow .react-flow__nodes {
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+
+.mc-react-flow .react-flow__node {
+  box-sizing: border-box;
+  pointer-events: all;
+  transform-origin: 0 0;
+  user-select: none;
+}
+
+.mc-react-flow .react-flow__edges {
+  overflow: visible;
+  pointer-events: none;
+}
+
+.mc-react-flow .react-flow__edge-path,
+.mc-react-flow .react-flow__connection-path {
+  fill: none;
+}
+
+.mc-react-flow .react-flow__handle {
+  position: absolute;
+  pointer-events: none;
+}
+
+.mc-react-flow .react-flow__handle.connectionindicator {
+  pointer-events: all;
+}
+
+.mc-react-flow .react-flow__handle-left {
+  top: 50%;
+  left: -4px;
+  transform: translateY(-50%);
+}
+
+.mc-react-flow .react-flow__handle-right {
+  top: 50%;
+  right: -4px;
+  transform: translateY(-50%);
+}
+
+.mc-react-flow .react-flow__handle-top {
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mc-react-flow .react-flow__handle-bottom {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mc-react-flow .react-flow__edgelabel-renderer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.mc-react-flow .react-flow__panel {
+  position: absolute;
+  z-index: 5;
+  margin: 15px;
+}
+
+.mc-react-flow .react-flow__panel.top {
+  top: 0;
+}
+
+.mc-react-flow .react-flow__panel.bottom {
+  bottom: 0;
+}
+
+.mc-react-flow .react-flow__panel.left {
+  left: 0;
+}
+
+.mc-react-flow .react-flow__panel.right {
+  right: 0;
+}
+
+.mc-react-flow .react-flow__panel.center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mc-react-flow .react-flow__minimap svg {
+  display: block;
+}
+
+.mc-react-flow .react-flow__resize-control {
+  position: absolute;
+}
+
+.mc-node-alignment-guide {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 999px;
+  opacity: 0;
+  filter: drop-shadow(0 0 1px rgba(103, 232, 249, 0.24));
+  will-change: transform, width, height, opacity;
+}
+
+.mc-node-alignment-guide--vertical {
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(103, 232, 249, 0) 0%,
+    rgba(103, 232, 249, 0.24) 18%,
+    rgba(165, 243, 252, 0.92) 43%,
+    rgba(236, 254, 255, 1) 50%,
+    rgba(165, 243, 252, 0.92) 57%,
+    rgba(103, 232, 249, 0.24) 82%,
+    rgba(103, 232, 249, 0) 100%
+  );
+}
+
+.mc-node-alignment-guide--horizontal {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgba(103, 232, 249, 0) 0%,
+    rgba(103, 232, 249, 0.24) 18%,
+    rgba(165, 243, 252, 0.92) 43%,
+    rgba(236, 254, 255, 1) 50%,
+    rgba(165, 243, 252, 0.92) 57%,
+    rgba(103, 232, 249, 0.24) 82%,
+    rgba(103, 232, 249, 0) 100%
+  );
+}
+
+.react-flow__node {
+  position: absolute;
+  transition: box-shadow var(--mc-dur-9f) ease;
+  cursor: default !important;
+}
+
+.mc-react-flow .react-flow__node:has(.mc-region-root) {
+  overflow: visible;
+}
+
+/* 区域节点字号滑块：避免在 flex 内被撑成「随字号变长」 */
+.mc-react-flow input.mc-region-font-range[type='range'] {
+  flex: 1 1 0%;
+  min-width: 0;
+  width: 1%;
+  cursor: ew-resize;
+}
+
+.mc-react-flow input.mc-region-font-range[type='range']::-webkit-slider-thumb {
+  cursor: ew-resize;
+}
+
+.mc-react-flow input.mc-region-font-range[type='range']::-moz-range-thumb {
+  cursor: ew-resize;
+}
+
+.react-flow__node.dragging {
+  transition: none !important;
+  will-change: transform;
+  /* 勿用 paint：左右连线点略伸出盒外，会被裁切 */
+  contain: layout style;
+  backface-visibility: hidden;
+  z-index: 1000 !important;
+  cursor: default !important;
+  overflow: visible !important;
+}
+
+/* 拖拽时内层勿做 transform 过渡；连线点在壳内，此前 hover 的 scale 会在 dragging 时消失导致视觉收缩 */
+.react-flow__node.dragging > div {
+  transition: none !important;
+}
+
+.react-flow__node.selected {
+  box-shadow: none;
+}
+
+.react-flow__handle {
+  cursor: pointer !important;
+  transition:
+    transform var(--mc-dur-9f) ease,
+    background-color var(--mc-dur-9f) ease;
+}
+
+.react-flow__handle:hover {
+  transform: scale(1.2);
+}
+
+/* Node cursor customization */
+.react-flow__node input,
+.react-flow__node textarea,
+.react-flow__node [contenteditable="true"] {
+  cursor: text !important;
+}
+
+.react-flow__node input[type='range'],
+.react-flow__node input[type='range']::-webkit-slider-thumb,
+.react-flow__node input[type='range']::-webkit-slider-runnable-track,
+.react-flow__node input[type='range']::-moz-range-thumb,
+.react-flow__node input[type='range']::-moz-range-track {
+  cursor: pointer !important;
+}
+
+/* Agent 聊天气泡正文：显式允许划选复制（避免继承 RF/壳层对指针层的默认行为） */
+.react-flow__node .mc-agent-bubble .select-text {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
+
+.react-flow__node button,
+.react-flow__node a,
+.react-flow__node [role="button"] {
+  cursor: pointer !important;
+}
+
+.react-flow__node.draggable:hover {
+  cursor: default !important;
+}
+
+/* 框选矩形（覆盖 reactflow style.css 蓝框）：淡淡柔光白 */
+.mc-react-flow .react-flow__nodesselection-rect,
+.mc-react-flow .react-flow__selection {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px dashed rgba(255, 255, 255, 0.42);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 32px rgba(255, 255, 255, 0.08);
+}
+
+/* Glass effect utility */
+.glass {
+  background: rgba(18, 18, 26, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #f4f4f5, #fb923c, #fed7aa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow effect utilities */
+.glow-indigo,
+.glow-purple,
+.glow-pink,
+.glow-amber {
+  box-shadow: 0 0 22px rgba(249, 115, 22, 0.22);
+}
+
+/* Noise texture overlay */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Focus styles（玻璃输入区内由容器样式表达焦点，避免出现双圈褐色描边） */
+:focus-visible {
+  outline: 2px solid rgba(249, 115, 22, 0.5);
+  outline-offset: 2px;
+}
+
+.glass-input-surface :focus-visible,
+.glass-input-surface:focus-within :focus-visible,
+.glass-input-surface input:focus-visible,
+.glass-input-surface textarea:focus-visible,
+.glass-input-surface [contenteditable="true"]:focus-visible {
+  outline: none !important;
+}
+
+/* 欢迎页灵感速记等：不在 glass-input-surface 内，避免全局 :focus-visible 顶部褐色描边 */
+.mc-ref-panel textarea:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+/* 新建画布弹窗：焦点为柔光白，不使用全局橙褐色 outline */
+.mc-welcome-new-canvas-dialog :focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+.mc-welcome-new-canvas-dialog input:focus-visible,
+.mc-welcome-new-canvas-dialog textarea:focus-visible {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 0 22px rgba(255, 255, 255, 0.09);
+}
+
+.mc-welcome-new-canvas-dialog button:focus-visible {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 0 18px rgba(255, 255, 255, 0.08);
+}
+
+.glass-input-surface [contenteditable="true"]:focus {
+  outline: none !important;
+}
+
+/* 分镜底部 @ 引用输入：自身带 glass-input-surface，不受「子元素」规则保护，去掉全局褐橙色 focus-visible 描边 */
+.mc-storyboard-node .mc-storyboard-mention-input:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+/* 全景节点（场景补充等）：去掉全局褐橙色 focus-visible 外框，保留节点内 Tailwind ring/border */
+.mc-panorama-node textarea:focus-visible,
+.mc-panorama-node input:not([type='checkbox']):not([type='radio']):not([type='range']):focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+/* Agent 聊天节点：聊天气泡内输入/文本域不受全局 :focus-visible 褐色描边影响 */
+.mc-agent-chat-node textarea:focus-visible,
+.mc-agent-chat-node textarea:focus,
+.mc-agent-chat-node input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):focus-visible,
+.mc-agent-chat-node input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='file']):focus {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+.mc-agent-chat-node .mc-agent-chat-editor:focus-visible,
+.mc-agent-chat-node .mc-agent-chat-editor:focus {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+.mc-agent-chat-node .mc-agent-chat-editor[data-empty='1']:before {
+  content: attr(data-placeholder);
+  color: rgb(82 82 91);
+  pointer-events: none;
+  position: absolute;
+  left: 0.5rem;
+  top: 0.45rem;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+/* Agent 聊天气泡：勿对壳做 transform 入场动画（与 RF 节点拖拽位移叠加会闪；松手后 animation 恢复会整段重播） */
+
+/* Selection color */
+::selection {
+  background: rgba(249, 115, 22, 0.3);
+  color: #ffffff;
+}
+
+/* Select option styling for native select */
+select option {
+  background-color: #2a2a3a;
+  color: #e4e4e7;
+  padding: 2px 8px;
+}
+
+select option:checked,
+select option:hover {
+  background-color: #3a3a4e !important;
+}
+
+/* === React Flow 边线（旧版青绿样式已弃用，实色见下方 .mc-react-flow 段） === */
+.react-flow__arrowhead {
+  fill: rgba(250, 250, 250, 0.88);
+  stroke: rgba(230, 230, 230, 0.55);
+}
+
+/* 仅「正在拖动的节点」降压：纯视口平移只有 is-flow-moving + is-flow-moving-pan，勿动其它节点，否则松手整屏闪 */
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging {
+  transition: none !important;
+  contain: layout style;
+  transform: translateZ(0);
+  will-change: transform;
+  overflow: visible !important;
+}
+
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging > * {
+  box-shadow: none !important;
+  transition: none !important;
+  visibility: visible !important;
+}
+
+/* 拖拽结束后恢复展开节点的磨砂效果 */
+.flow-drag-performance .react-flow__node:not(.dragging) > .mc-node-expanded {
+  backdrop-filter: blur(24px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  box-shadow:
+    0 0 32px rgba(255, 255, 255, 0.14),
+    0 22px 50px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+.flow-drag-performance.is-flow-moving .react-flow__edges {
+  display: block !important;
+}
+
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging,
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging * {
+  animation: none !important;
+}
+
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging.selected {
+  box-shadow: none !important;
+}
+
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging::after {
+  content: none !important;
+}
+
+.flow-drag-performance.is-flow-moving .react-flow__minimap,
+.flow-drag-performance.is-flow-moving .react-flow__controls {
+  display: block !important;
+}
+
+.compact-node-frame {
+  contain: layout style;
+}
+
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging img,
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging video,
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging audio,
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging canvas,
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging .mention-rich-editor,
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node.dragging .mention-token-thumb {
+  visibility: visible !important;
+}
+
+/* 纯视口平移：单层 viewport 提升合成，避免给每个节点挂 contain/will-change 造成布局压力 */
+.flow-drag-performance.is-flow-moving-pan .react-flow__viewport {
+  will-change: transform;
+}
+
+/*
+ * 纯拖动画布（仅 is-flow-moving-pan、无节点拖）时的主卡顿源：
+ * 1) 多节点 backdrop-filter 随视口 transform 每帧与点阵/邻层重采样；
+ * 2) MiniMap 缩略层在平移中持续重绘。
+ * 下面在平移段临时去掉节点侧 backdrop、隐藏小地图，松手后类名撤除即恢复。
+ */
+.mc-canvas-shell.flow-drag-performance.is-flow-moving-pan.mc-canvas-performance
+  .mc-react-flow
+  .react-flow__node,
+.mc-canvas-shell.flow-drag-performance.is-flow-moving-pan.mc-canvas-performance
+  .mc-react-flow
+  .react-flow__node * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/*
+ * 关闭 backdrop-filter 后，玻璃节点原本的半透明底色会直接透出画布。
+ * 平移期间只给最外层壳补实底，内部布局和文字保持原样；松手移除
+ * is-flow-moving-pan 后即恢复正常磨砂，不增加逐帧模糊重采样开销。
+ */
+.mc-canvas-shell.flow-drag-performance.is-flow-moving-pan.mc-canvas-performance
+  .mc-react-flow
+  .react-flow__node
+  > .mc-node-glass-shell,
+.mc-canvas-shell.flow-drag-performance.is-flow-moving-pan.mc-canvas-performance
+  .mc-react-flow
+  .react-flow__node
+  > .mc-node-expanded,
+.mc-canvas-shell.flow-drag-performance.is-flow-moving-pan.mc-canvas-performance
+  .mc-react-flow
+  .react-flow__node
+  > div:not(.mc-node-edit-anchor) {
+  background: rgb(15, 17, 22) !important;
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+.mc-canvas-shell.flow-drag-performance.is-flow-moving-pan .react-flow__minimap {
+  visibility: hidden !important;
+}
+
+/* Agent 展开：NodeResizer 拖拽缩放时降压（ResizeObserver + backdrop 易拖慢主线程） */
+.mc-canvas-shell.mc-canvas-performance .mc-agent-chat-node.mc-agent--resize-live {
+  contain: layout style;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+.mc-canvas-shell.mc-canvas-performance .mc-agent-chat-node.mc-agent--resize-live .mc-agent-expand-core {
+  pointer-events: none;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 提及高亮不能改变文本排版，否则 textarea 的光标和选区会偏移 */
+.mention-rich-editor {
+  tab-size: 2;
+  -webkit-user-modify: read-write;
+}
+
+.mention-token {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  min-height: 24px;
+  margin: 0 2px;
+  padding: 2px 6px 2px 3px;
+  vertical-align: -7px;
+  color: rgba(250, 250, 250, 0.94);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 8px 22px rgba(0, 0, 0, 0.2);
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.mention-token-thumb {
+  position: relative;
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.mention-token-thumb img,
+.mention-token-thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mention-token-thumb-file::before {
+  content: '';
+  width: 9px;
+  height: 11px;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+}
+
+.mention-token-video-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 8px;
+  line-height: 1;
+}
+
+.mention-token-name {
+  min-width: 0;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.react-flow__node .text-zinc-300 {
+  color: #cbd5e1;
+}
+
+.react-flow__node .text-zinc-400 {
+  color: #94a3b8;
+}
+
+.react-flow__node .text-zinc-500 {
+  color: #64748b;
+}
+
+.react-flow__node .text-zinc-600 {
+  color: #475569;
+}
+
+.react-flow__node [class*="text-cyan-"],
+.react-flow__node [class*="text-sky-"],
+.react-flow__node [class*="text-teal-"],
+.react-flow__node [class*="text-amber-"],
+.react-flow__node [class*="text-violet-"],
+.react-flow__node [class*="text-purple-"] {
+  color: rgba(244, 244, 245, 0.96) !important;
+}
+
+.react-flow__node [class*="bg-cyan-"],
+.react-flow__node [class*="bg-sky-"],
+.react-flow__node [class*="bg-teal-"],
+.react-flow__node [class*="bg-amber-"],
+.react-flow__node [class*="bg-violet-"],
+.react-flow__node [class*="bg-purple-"] {
+  background-color: rgba(255, 255, 255, 0.09) !important;
+}
+
+.react-flow__node [class*="border-cyan-"],
+.react-flow__node [class*="border-sky-"],
+.react-flow__node [class*="border-teal-"],
+.react-flow__node [class*="border-amber-"],
+.react-flow__node [class*="border-violet-"],
+.react-flow__node [class*="border-purple-"] {
+  border-color: rgba(255, 255, 255, 0.24) !important;
+}
+
+/* Magine Canvas visual system */
+.mc-app-shell {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.028), transparent 140px),
+    #040505;
+}
+
+.mc-canvas-shell {
+  position: relative;
+  isolation: isolate;
+  background: #020303;
+}
+
+/* 暗角/渐变伪元素 z-0；点阵在 .mc-canvas-dot-grid z-1；react-flow z-2（透明底，透出点阵） */
+.mc-canvas-shell > .mc-canvas-entrance-scene-inner > .react-flow {
+  position: relative;
+  /* RF 根节点内联 style 含 zIndex:0，必须抬升才能透出下层 .mc-canvas-dot-grid */
+  z-index: 2 !important;
+}
+
+/* 与 shell 伪元素分离，不受 mc-canvas-performance 对 ::before/::after 的 opacity 影响 */
+.mc-canvas-shell > .mc-canvas-entrance-scene-inner > .mc-canvas-dot-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-color: transparent;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.2) var(--mc-dot-core-radius, 1px),
+    rgba(255, 255, 255, 0.07) var(--mc-dot-soft-radius, 1.4px),
+    transparent var(--mc-dot-edge-radius, 1.85px)
+  );
+  background-size: 20px 20px;
+  background-position: 0 0;
+  transition: opacity 120ms ease;
+}
+
+.mc-canvas-shell.mc-canvas-performance > .mc-canvas-entrance-scene-inner > .mc-canvas-dot-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.17) var(--mc-dot-core-radius, 1px),
+    rgba(255, 255, 255, 0.06) var(--mc-dot-soft-radius, 1.4px),
+    transparent var(--mc-dot-edge-radius, 1.85px)
+  );
+  background-size: 22px 22px;
+}
+
+/* 进入画布：镜头后拉 + 由虚变实（transform/filter 在场景层，避免与 RF viewport 冲突） */
+.mc-canvas-entrance-scene-inner {
+  transform-origin: 50% 44%;
+  transition:
+    transform 1.12s cubic-bezier(0.33, 1, 0.34, 1),
+    filter 1.02s cubic-bezier(0.38, 1, 0.32, 1),
+    opacity 0.95s cubic-bezier(0.33, 1, 0.36, 1);
+}
+
+.mc-canvas-shell.mc-canvas-entrance--pull .mc-canvas-entrance-scene-inner {
+  transform: scale(1.16);
+  filter: blur(13px) saturate(0.86);
+  opacity: 0.88;
+}
+
+/* 欢迎页：与画布同构的镜头后拉 + 由虚变实（仅场景层） */
+.mc-welcome-entrance-scene-inner {
+  transform-origin: 50% 44%;
+  transition:
+    transform 1.12s cubic-bezier(0.33, 1, 0.34, 1),
+    filter 1.02s cubic-bezier(0.38, 1, 0.32, 1),
+    opacity 0.95s cubic-bezier(0.33, 1, 0.36, 1);
+}
+
+.mc-welcome-entrance--pull .mc-welcome-entrance-scene-inner {
+  transform: scale(1.14);
+  filter: blur(12px) saturate(0.88);
+  opacity: 0.9;
+}
+
+/* Electron：关闭入场 scene 层 filter:blur()，避免部分 GPU 上整页糊死 */
+html.mc-electron-no-entrance-blur .mc-welcome-entrance-scene-inner,
+html.mc-electron-no-entrance-blur .mc-canvas-entrance-scene-inner,
+html.mc-electron-no-entrance-blur .mc-welcome-shell.mc-welcome-entrance--pull .mc-welcome-entrance-scene-inner,
+html.mc-electron-no-entrance-blur .mc-canvas-shell.mc-canvas-entrance--pull .mc-canvas-entrance-scene-inner {
+  filter: none !important;
+  transform: none !important;
+  opacity: 1 !important;
+  transition: none !important;
+}
+
+/* 画布区常驻：非玻璃壳节点省 GPU；五类主节点壳见 .mc-node-glass-shell */
+.mc-canvas-shell.mc-canvas-performance .react-flow__node > div.mc-node-glass-shell {
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: rgba(18, 20, 24, 0.38) !important;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  /* 略强于默认壳的磨砂，仍低于「全分辨率 blur」以兼顾多节点 */
+  backdrop-filter: blur(16px) saturate(1.2) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.2) !important;
+}
+
+/* 展开节点保持增强磨砂，覆盖 mc-node-glass-shell 的弱化 blur */
+.mc-canvas-shell.mc-canvas-performance .react-flow__node > div.mc-node-glass-shell.mc-node-expanded {
+  backdrop-filter: blur(24px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3) !important;
+  background: rgba(18, 20, 24, 0.38) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node > div:not(.mc-node-glass-shell) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(20, 22, 28, 0.34) !important;
+  box-shadow:
+    0 10px 28px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node.selected > div.mc-node-glass-shell {
+  border-color: rgba(255, 255, 255, 0.48) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 24px rgba(255, 255, 255, 0.2),
+    0 0 48px rgba(255, 255, 255, 0.1),
+    0 14px 40px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node.selected > div:not(.mc-node-glass-shell) {
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 22px rgba(255, 255, 255, 0.16),
+    0 10px 28px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 勿对玻璃壳子去 transform（会破坏与 mc-node-glass-shell translate3d 的合成层，引发命中/视觉跳变） */
+.mc-canvas-shell.mc-canvas-performance .react-flow__node:not(.dragging):hover > div:not(.mc-node-glass-shell) {
+  transform: none !important;
+}
+
+/* 选中时关闭非展开/紧凑壳上的装饰动画（展开壳见 .mc-node-expanded / .mc-node-compact） */
+.mc-canvas-shell.mc-canvas-performance
+  .react-flow__node.selected:not(.dragging)
+  > div:not(.mc-node-expanded):not(.mc-node-compact) {
+  animation: none !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node .react-flow__handle.mc-node-handle {
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.14) !important;
+  filter: none !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node .react-flow__handle-connecting.mc-node-handle,
+.mc-canvas-shell.mc-canvas-performance .react-flow__node .react-flow__handle-valid.mc-node-handle {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1) !important;
+  filter: none !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .glass-input-surface,
+.mc-canvas-shell.mc-canvas-performance .glass-input-surface:focus-within {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node .mc-node-expanded .glass-input-surface,
+.mc-canvas-shell.mc-canvas-performance .react-flow__node .mc-node-expanded .glass-input-surface:focus-within {
+  backdrop-filter: blur(12px) saturate(1.12) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.12) !important;
+  background: rgba(12, 14, 20, 0.045) !important;
+}
+
+/* 节点壳上 Tailwind backdrop-blur-*（展开卡片等） */
+.mc-canvas-shell.mc-canvas-performance .mc-react-flow [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/*
+ * 节点不再强制独立合成层。
+ * 之前 translateZ(0) 给每个节点创建独立 GPU 纹理，
+ * N 个节点 = N 层，视口平移/缩放时每帧要重组合所有层。
+ * 现在只在拖拽中（is-flow-moving-nodes .dragging）提升为合成层。
+ */
+.mc-canvas-shell .mc-react-flow .react-flow__node {
+  will-change: auto;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node text,
+.mc-canvas-shell .mc-react-flow .react-flow__node input,
+.mc-canvas-shell .mc-react-flow .react-flow__node textarea,
+.mc-canvas-shell .mc-react-flow .react-flow__node [contenteditable],
+.mc-canvas-shell .mc-react-flow .react-flow__node span,
+.mc-canvas-shell .mc-react-flow .react-flow__node div {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 高 DPI 屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .mc-canvas-shell .mc-react-flow .react-flow__node text,
+  .mc-canvas-shell .mc-react-flow .react-flow__node input,
+  .mc-canvas-shell .mc-react-flow .react-flow__node textarea,
+  .mc-canvas-shell .mc-react-flow .react-flow__node [contenteditable],
+  .mc-canvas-shell .mc-react-flow .react-flow__node span,
+  .mc-canvas-shell .mc-react-flow .react-flow__node div {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* 优化缩放时的文字渲染 - 移除不必要的动画和模糊 */
+.mc-canvas-shell .mc-react-flow .react-flow__node .mention-rich-editor,
+.mc-canvas-shell .mc-react-flow .react-flow__node textarea,
+.mc-canvas-shell .mc-react-flow .react-flow__node input {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+/* 省 GPU：关闭 popover 壳动画 */
+.mc-canvas-shell.mc-canvas-performance .mc-popover {
+  animation: none !important;
+  will-change: auto !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__edge-path {
+  transition: none !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance::before,
+.mc-canvas-shell.mc-canvas-performance::after {
+  opacity: 0.38;
+}
+
+.mc-canvas-dots {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.065) 1px, transparent 1.25px);
+  background-size: 16px 16px;
+}
+
+.mc-canvas-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 22%, rgba(0, 0, 0, 0.32));
+  opacity: 1;
+}
+
+/* Dark vignette overlay（与 ::before 同层，不压点阵） */
+.mc-canvas-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.mc-ref-icon-button {
+  display: inline-flex;
+  height: 48px;
+  width: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(21, 25, 26, 0.86);
+  color: rgba(244, 244, 245, 0.88);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  will-change: transform, opacity;
+}
+
+.mc-ref-share-button {
+  display: inline-flex;
+  height: 48px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(21, 25, 26, 0.86);
+  padding: 0 18px;
+  color: rgba(244, 244, 245, 0.92);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+}
+
+@media (max-width: 1600px) {
+  .mc-welcome-top-actions {
+    gap: 8px;
+  }
+
+  .mc-welcome-top-actions .mc-ref-share-button {
+    gap: 0;
+    padding-inline: 12px;
+    font-size: 0;
+  }
+
+  .mc-welcome-top-actions .mc-welcome-official-button {
+    gap: 8px;
+    padding-inline: 14px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .mc-welcome-top-actions .mc-welcome-official-button {
+    gap: 0;
+    padding-inline: 12px;
+    font-size: 0;
+  }
+}
+
+.mc-ref-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(18, 20, 24, 0.38);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px) saturate(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+}
+
+.mc-react-flow .react-flow__pane {
+  cursor: default !important;
+}
+
+/*
+ * 缩小画布（RF zoom 低）：视口 transform scale 会把 backdrop 的软边与亚像素文字一起「拉大」发糊。
+ * 由 Canvas 在 zoom < 0.52 时为 .mc-canvas-shell 打上 data-mc-zoom-sharp，此处临时减弱 blur、略垫实底。
+ */
+.mc-canvas-shell .mc-react-flow .react-flow__viewport {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  image-rendering: pixelated;
+  image-rendering: -webkit-optimize-contrast;
+  shape-rendering: geometricPrecision;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node,
+.mc-canvas-shell .mc-react-flow .react-flow__node * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+  shape-rendering: geometricPrecision;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .mc-react-flow .react-flow__viewport {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  image-rendering: -webkit-optimize-contrast;
+  shape-rendering: crispEdges;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .mc-react-flow .react-flow__node,
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .mc-react-flow .react-flow__node * {
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  shape-rendering: crispEdges;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .react-flow__node > div.mc-node-glass-shell {
+  backdrop-filter: blur(10px) saturate(1.12) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.12) !important;
+  background: rgba(18, 20, 24, 0.38) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .react-flow__node > div:not(.mc-node-glass-shell) {
+  backdrop-filter: blur(8px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(1.1) !important;
+  background: rgba(18, 20, 26, 0.38) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .react-flow__node .mc-node-frost-surface {
+  backdrop-filter: blur(7px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(7px) saturate(1.08) !important;
+  background: rgba(10, 12, 18, 0.12) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .react-flow__node .mc-node-frost-strip {
+  backdrop-filter: blur(6px) saturate(1.06) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(1.06) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .react-flow__node .mc-node-frost-media-well {
+  backdrop-filter: blur(7px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(7px) saturate(1.08) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .react-flow__node .mc-node-frost-thumb {
+  backdrop-filter: blur(6px) saturate(1.05) !important;
+  -webkit-backdrop-filter: blur(6px) saturate(1.05) !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .react-flow__node .mc-node-expanded .glass-input-surface,
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp] .react-flow__node .mc-node-expanded .glass-input-surface:focus-within {
+  backdrop-filter: blur(8px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(1.08) !important;
+}
+
+
+.react-flow__node {
+  color: #f4f4f5;
+  overflow: visible;
+}
+
+/* Ports and resize handles live outside the visual frame; the nested frame keeps media clipped. */
+.react-flow__node > div.mc-node-port-shell {
+  overflow: visible !important;
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.react-flow__node > div:not(.mc-node-glass-shell) {
+  border-radius: 8px;
+  background: rgba(18, 20, 26, 0.26);
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 22px 64px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(14px) saturate(1.18);
+  -webkit-backdrop-filter: blur(14px) saturate(1.18);
+}
+
+/* 720° 全景：WebGL 与壳层 backdrop-filter 同层时易糊；强制关 blur，依赖节点自身实底 */
+.react-flow__node > div.mc-panorama-node {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node > div.mc-panorama-node {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 文本 / 素材 / 图像 / 视频 / Agent 节点外壳：透明磨砂玻璃（壳根勿用含 backdrop-blur 的类名） */
+.react-flow__node > div.mc-node-glass-shell {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(18, 20, 24, 0.38);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px) saturate(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  overflow: visible;
+  /* 每节点独立合成层，减轻与兄弟节点 backdrop、transform 动画的 Chromium 映射伪影 */
+  isolation: isolate;
+  transform: translate3d(0, 0, 0);
+}
+
+/* 紧凑节点且内层为 mc-node-compact-glass：外壳仅包连线/命中区，避免与 CompactNodeFrame 叠双层磨砂与圆角错位（边缘「断层」） */
+.react-flow__node > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: none;
+  isolation: auto;
+}
+
+.react-flow__node:not(.dragging):hover > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass) {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.react-flow__node:not(.dragging):hover
+  > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass)
+  .mc-node-compact-glass {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow:
+    0 0 22px rgba(255, 255, 255, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.react-flow__node.selected > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass) {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.react-flow__node.selected > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass) .mc-node-compact-glass {
+  border-color: rgba(255, 255, 255, 0.38) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 22px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.react-flow__node.selected:not(.dragging):hover > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass) {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.react-flow__node.selected:not(.dragging):hover
+  > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass)
+  .mc-node-compact-glass {
+  border-color: rgba(255, 255, 255, 0.42) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 0 26px rgba(255, 255, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass) {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance .react-flow__node.selected > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass) {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp]
+  .react-flow__node
+  > div.mc-node-glass-shell.mc-node-compact:has(.mc-node-compact-glass) {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: transparent !important;
+}
+
+.react-flow__node.selected > div:not(.mc-node-glass-shell) {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.44) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 28px rgba(255, 255, 255, 0.2),
+    0 0 56px rgba(255, 255, 255, 0.1),
+    0 22px 64px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.react-flow__node.selected > div.mc-node-glass-shell {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 0 26px rgba(255, 255, 255, 0.22),
+    0 0 52px rgba(255, 255, 255, 0.12),
+    0 0 88px rgba(255, 255, 255, 0.06),
+    0 30px 80px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+/* 节点内层磨砂（类名勿含 backdrop-blur 子串，避免 mc-canvas-performance 清空） */
+.react-flow__node .mc-node-frost-surface {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(10, 12, 18, 0.06) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(11px) saturate(1.12);
+  -webkit-backdrop-filter: blur(11px) saturate(1.12);
+}
+
+.react-flow__node .mc-node-frost-strip {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(12, 14, 20, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(9px) saturate(1.08);
+  -webkit-backdrop-filter: blur(9px) saturate(1.08);
+}
+
+.react-flow__node .mc-node-frost-media-well {
+  border-color: rgba(255, 255, 255, 0.065) !important;
+  background: rgba(6, 8, 12, 0.07) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(11px) saturate(1.1);
+  -webkit-backdrop-filter: blur(11px) saturate(1.1);
+}
+
+.react-flow__node .mc-node-frost-thumb {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+  backdrop-filter: blur(8px) saturate(1.06);
+  -webkit-backdrop-filter: blur(8px) saturate(1.06);
+}
+
+.react-flow__node .mc-node-frost-header {
+  background: rgba(12, 14, 20, 0.012);
+  border-bottom-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.react-flow__node .mc-node-compact-glass {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  /* 紧凑态勿叠双层 backdrop：用略实底 + 轻高光模拟磨砂，避免与邻节点 blur 串层 */
+  background: rgba(16, 18, 24, 0.52);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.react-flow__node .mc-node-compact-glass-body {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(10, 12, 18, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* 展开态输入区：透明磨砂，透出画布 */
+.react-flow__node .mc-node-expanded .glass-input-surface,
+.react-flow__node .mc-node-expanded .glass-input-surface:focus-within {
+  background: rgba(12, 14, 20, 0.05) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 10px 28px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(13px) saturate(1.12);
+  -webkit-backdrop-filter: blur(13px) saturate(1.12);
+}
+
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded {
+  background: rgba(12, 14, 18, 0.94) !important;
+  transform-origin: center center;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded.mc-topaz-expand-center {
+  animation: mc-topaz-expand-center-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform, clip-path;
+}
+
+.mc-react-flow:has(.react-flow__node.selected > div.mc-topaz-enhance-node.mc-node-expanded)
+  .react-flow__nodesselection-rect {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded *,
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded input,
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded button,
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded [role="button"] {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-surface,
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-strip,
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-media-well,
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .glass-input-surface,
+.react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .glass-input-surface:focus-within {
+  background: rgba(13, 15, 19, 0.72) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.react-flow__node .mc-music-wave-node,
+.react-flow__node .mc-music-edit-panel.mc-node-expanded {
+  background: rgba(8, 10, 13, 0.95) !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.react-flow__node .mc-music-wave-node *,
+.react-flow__node .mc-music-edit-panel *,
+.react-flow__node .mc-music-edit-panel input,
+.react-flow__node .mc-music-edit-panel button,
+.react-flow__node .mc-music-edit-panel [role="button"] {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.react-flow__node .mc-music-voice-wave svg {
+  height: 36px !important;
+  overflow: visible !important;
+}
+
+.react-flow__node .mc-music-voice-wave-playing svg {
+  animation: mc-music-wave-vibrate 120ms ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 7px rgba(34, 211, 238, 0.34)) drop-shadow(0 0 9px rgba(251, 191, 36, 0.18));
+}
+
+.react-flow__node .mc-music-progress-track {
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.035);
+}
+
+.react-flow__node .mc-music-progress-fill {
+  min-width: 0;
+  transition: width 120ms linear;
+  box-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
+}
+
+.react-flow__node .mc-music-history-strip,
+.react-flow__node .mc-music-history-strip * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.react-flow__node .mc-music-history-strip {
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.react-flow__node .mc-music-history-strip::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.react-flow__node .mc-music-history-strip::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+@keyframes mc-music-wave-vibrate {
+  from {
+    transform: translateY(-0.5px) scaleY(1.04);
+  }
+  to {
+    transform: translateY(0.5px) scaleY(1.1);
+  }
+}
+
+.react-flow__node .mc-music-edit-panel .mc-node-frost-surface,
+.react-flow__node .mc-music-edit-panel .mc-node-frost-strip,
+.react-flow__node .mc-music-edit-panel .glass-input-surface,
+.react-flow__node .mc-music-edit-panel .glass-input-surface:focus-within {
+  background: rgba(13, 15, 19, 0.78) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.react-flow__handle {
+  width: 12px !important;
+  height: 12px !important;
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #e4e4e7 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.32) !important;
+  /* RF：锚点 y 来自 getBoundingClientRect，宽来自 offsetWidth；外扩 box-shadow / 部分 filter 会令二者与视觉圆点错位 → 仅用 inset 柔光 */
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.92),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.14) !important;
+  filter: none !important;
+}
+
+.react-flow__handle-connecting,
+.react-flow__handle-valid {
+  background: #fafafa !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.12) !important;
+  filter: none !important;
+}
+
+/* 节点连线点：入/出统一 — 小白点 + 内高光（不外扩阴影，避免与边锚点脱节） */
+.react-flow__node .react-flow__handle.mc-node-handle {
+  width: 8px !important;
+  height: 8px !important;
+  min-width: 8px !important;
+  min-height: 8px !important;
+  z-index: 80 !important;
+  border: 1px solid rgba(255, 255, 255, 0.42) !important;
+  border-radius: 9999px !important;
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f4f4f5 42%, #e4e4e7 100%) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.98),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.16) !important;
+  filter: none !important;
+}
+
+.react-flow__node .react-flow__handle-left.mc-node-handle {
+  left: -4px !important;
+  top: 50% !important;
+  transform: translate(0, -50%) !important;
+}
+
+.react-flow__node .react-flow__handle-right.mc-node-handle {
+  right: -4px !important;
+  top: 50% !important;
+  transform: translate(0, -50%) !important;
+}
+
+.react-flow__node .react-flow__handle.mc-node-handle:hover {
+  transform: translate(0, -50%) scale(1.12) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.12),
+    inset 0 0 6px rgba(255, 255, 255, 0.45) !important;
+  filter: none !important;
+}
+
+.react-flow__node.dragging .react-flow__handle.mc-node-handle {
+  transform: translate(0, -50%) !important;
+  transition: none !important;
+}
+
+.react-flow__node .react-flow__handle-connecting.mc-node-handle,
+.react-flow__node .react-flow__handle-valid.mc-node-handle {
+  background: #ffffff !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.65),
+    inset 0 1px 2px rgba(255, 255, 255, 1),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+    inset 0 0 8px rgba(255, 255, 255, 0.55) !important;
+  filter: none !important;
+}
+
+.react-flow__controls {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.11) !important;
+  background: rgba(34, 34, 35, 0.72) !important;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.38) !important;
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+
+/* 画布壳内：键盘焦点勿用全局橙描边，与底栏柔光淡白一致 */
+.mc-canvas-shell button:focus-visible,
+.mc-canvas-shell [role='button']:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.42);
+  outline-offset: 2px;
+}
+
+/* 欢迎页：键盘焦点与画布一致，柔光淡白描边 */
+.mc-welcome-shell button:focus-visible,
+.mc-welcome-shell [role='button']:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.42);
+  outline-offset: 2px;
+}
+
+.react-flow__controls-button {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1) !important;
+  background: transparent !important;
+  color: #cbd5e1 !important;
+}
+
+.react-flow__controls-button:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(250, 250, 250, 0.95) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.react-flow__controls-button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.42);
+  outline-offset: 2px;
+}
+
+.react-flow__minimap {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.11) !important;
+  background: rgba(34, 34, 35, 0.66) !important;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.36) !important;
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+
+.react-flow__minimap-mask {
+  fill: rgba(3, 7, 18, 0.66);
+}
+
+.react-flow__edge {
+  cursor: pointer;
+}
+
+/* —— 连线：常态灰线；悬停仅提亮实线（无传输动效）—— */
+.react-flow__edge-path {
+  stroke: rgba(225, 225, 225, 0.5);
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: rgba(255, 255, 255, 0.62) !important;
+}
+
+.react-flow__edge:hover .react-flow__arrowhead {
+  fill: rgba(252, 252, 252, 0.96) !important;
+  stroke: rgba(240, 240, 240, 0.72) !important;
+}
+
+/* 悬停提亮（非锁定 / 非淡出 / 非断开中） */
+.react-flow__edge:hover:not(.mc-edge-locked):not(.mc-edge-fading):not(.mc-edge-dissolving) .react-flow__edge-path {
+  stroke-width: 1.78 !important;
+  stroke: rgba(255, 255, 255, 0.82) !important;
+  transform: translateZ(0);
+}
+
+/* 点击保持：更亮、略粗 */
+.react-flow__edge.mc-edge-locked .react-flow__edge-path {
+  stroke-width: 1.95 !important;
+  stroke: rgba(255, 255, 255, 0.96) !important;
+}
+
+.react-flow__edge.mc-edge-locked .react-flow__arrowhead {
+  fill: rgba(255, 255, 255, 0.99) !important;
+  stroke: rgba(248, 248, 248, 0.82) !important;
+}
+
+/* 连线断开：缓出消失（时长与 Canvas MC_EDGE_DISSOLVE_MS 一致） */
+.react-flow__edge.mc-edge-dissolving {
+  pointer-events: none;
+}
+
+@keyframes mc-edge-dissolve-out {
+  from {
+    opacity: 1;
+    stroke-opacity: 1;
+    stroke-width: 1.95;
+  }
+
+  to {
+    opacity: 0;
+    stroke-opacity: 0;
+    stroke-width: 0.35;
+  }
+}
+
+@keyframes mc-edge-dissolve-arrow {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.react-flow__edge.mc-edge-dissolving .react-flow__edge-path {
+  animation: mc-edge-dissolve-out 0.64s cubic-bezier(0.33, 1, 0.32, 1) forwards;
+}
+
+.react-flow__edge.mc-edge-dissolving .react-flow__arrowhead {
+  animation: mc-edge-dissolve-arrow 0.64s cubic-bezier(0.33, 1, 0.32, 1) forwards;
+}
+
+/* 点画布取消多选时：由亮态缓回常态（时长与 Canvas MC_EDGE_PANE_FADE_MS 一致） */
+@keyframes mc-edge-lock-fade {
+  from {
+    stroke: rgba(255, 255, 255, 0.96);
+    stroke-width: 1.95;
+  }
+
+  to {
+    stroke: rgba(225, 225, 225, 0.5);
+    stroke-width: 1.45;
+  }
+}
+
+.react-flow__edge.mc-edge-fading .react-flow__edge-path {
+  animation: mc-edge-lock-fade 0.7s cubic-bezier(0.33, 1, 0.32, 1) forwards;
+}
+
+.react-flow__edge.mc-edge-fading .react-flow__arrowhead {
+  animation: mc-edge-lock-fade-arrow 0.7s cubic-bezier(0.33, 1, 0.32, 1) forwards;
+}
+
+@keyframes mc-edge-lock-fade-arrow {
+  from {
+    fill: rgba(255, 255, 255, 0.99);
+    stroke: rgba(248, 248, 248, 0.82);
+  }
+
+  to {
+    fill: rgba(252, 252, 252, 0.95);
+    stroke: rgba(235, 235, 235, 0.65);
+  }
+}
+
+.mention-rich-editor {
+  color: #f4f4f5;
+  caret-color: #ffffff;
+}
+
+.glass-input-surface {
+  background: rgba(26, 28, 32, 0.48) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    0 18px 42px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(24px) saturate(1.18);
+  -webkit-backdrop-filter: blur(24px) saturate(1.18);
+}
+
+.glass-input-surface:focus-within {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    0 18px 42px rgba(0, 0, 0, 0.22);
+}
+
+.mention-token {
+  color: rgba(250, 250, 250, 0.94);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.mention-token-thumb {
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+select,
+input,
+textarea,
+[contenteditable="true"] {
+  color-scheme: dark;
+}
+
+/* Interaction motion system（缓动与时长变量见上方 :root） */
+@keyframes mc-pop-in {
+  0% {
+    opacity: 0;
+    transform: var(--mc-popover-base-transform, translate3d(0, 0, 0)) translateY(16px) scale(0.94);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: var(--mc-popover-base-transform, translate3d(0, 0, 0)) translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes mc-pop-out {
+  0% {
+    opacity: 1;
+    transform: var(--mc-popover-base-transform, translate3d(0, 0, 0)) translateY(0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: var(--mc-popover-base-transform, translate3d(0, 0, 0)) translateY(-12px) scale(0.92);
+    filter: blur(6px);
+  }
+}
+
+/* 全景「一键截取」生成素材节点：短促缓入（勿用 transform，避免覆盖 RF 节点位移） */
+@keyframes mc-material-capture-entrance-kf {
+  0% {
+    opacity: 0;
+    filter: blur(7px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.react-flow__node.mc-material-capture-entrance {
+  animation: mc-material-capture-entrance-kf 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes mc-soft-flash {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.16);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+  }
+}
+
+/* Fluid flow animations - pure horizontal scrolling only */
+@keyframes mc-curves-sway-reverse {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.mc-popover {
+  transform: var(--mc-popover-base-transform, translate3d(0, 0, 0)) translateY(0) scale(1);
+  transform-origin: top left;
+  animation: mc-pop-in var(--mc-dur-29f) var(--mc-ease-pop) both;
+  will-change: transform, opacity, filter;
+}
+
+.mc-popover.closing {
+  animation: mc-pop-out var(--mc-dur-34f) var(--mc-ease-pop) both;
+}
+
+/* 双击节点选择器：磨砂玻璃（勿在 class 里写 backdrop-blur-*，mc-editor-gpu-lite 会按子串关掉模糊） */
+.mc-node-menu-glass {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(8, 10, 14, 0.12);
+  box-shadow:
+    0 28px 72px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(22px) saturate(1.14);
+  -webkit-backdrop-filter: blur(22px) saturate(1.14);
+}
+
+.mc-editor-gpu-lite .mc-node-menu-glass {
+  background: rgba(8, 10, 14, 0.2) !important;
+  backdrop-filter: blur(16px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.08) !important;
+}
+
+.react-flow__node > div.mc-node-glass-shell.mc-node-expanded,
+.mc-node-expanded {
+  transform-origin: top center;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  background: rgba(18, 20, 24, 0.38) !important;
+  box-shadow:
+    0 0 32px rgba(255, 255, 255, 0.14),
+    0 22px 50px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(24px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3) !important;
+}
+
+/* backdrop-filter 不可用时（部分 Electron 构建）略垫实底，避免节点/menu 几乎全透明 */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .mc-node-menu-glass {
+    background: rgba(12, 14, 18, 0.82) !important;
+  }
+
+  .react-flow__node > div.mc-node-glass-shell,
+  .react-flow__node > div.mc-node-glass-shell.mc-node-expanded,
+  .mc-node-expanded {
+    background: rgba(18, 20, 24, 0.78) !important;
+  }
+
+  .react-flow__node .mc-node-compact-glass {
+    background: rgba(16, 18, 24, 0.82) !important;
+  }
+}
+
+.mc-node-compact {
+  transform-origin: top center;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-media-only {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-media-only-surface {
+  transition:
+    border-color var(--mc-dur-11f) ease,
+    box-shadow var(--mc-dur-13f) ease;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node:not(.dragging):hover .mc-node-media-only-surface {
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node.selected .mc-node-media-only-surface {
+  border-color: rgba(255, 255, 255, 0.42) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
+}
+
+/* Media nodes expose the inner preview border instead of a second outer frame. */
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-media-frame-anchor > .compact-node-frame,
+.mc-canvas-shell .mc-react-flow .react-flow__node.selected .mc-node-media-frame-anchor > .compact-node-frame,
+.mc-canvas-shell .mc-react-flow .react-flow__node:not(.dragging):hover .mc-node-media-frame-anchor > .compact-node-frame {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-media-frame-anchor > .react-flow__handle-left.mc-node-inner-frame-handle {
+  left: 2px !important;
+  top: calc(50% + 11px) !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-media-frame-anchor > .react-flow__handle-right.mc-node-inner-frame-handle {
+  right: 2px !important;
+  top: calc(50% + 11px) !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-media-only-anchor > .react-flow__handle-left.mc-node-inner-frame-handle {
+  left: -3px !important;
+  top: 50% !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-media-only-anchor > .react-flow__handle-right.mc-node-inner-frame-handle {
+  right: -3px !important;
+  top: 50% !important;
+}
+
+/* Generated node editor anchor: prevent ReactFlow from drawing an outer selected frame. */
+.react-flow__node > div.mc-node-edit-anchor,
+.react-flow__node.selected > div.mc-node-edit-anchor,
+.react-flow__node:not(.dragging):hover > div.mc-node-edit-anchor,
+.react-flow__node.selected:not(.dragging):hover > div.mc-node-edit-anchor {
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.react-flow__node:has(> div.mc-node-edit-anchor),
+.react-flow__node:has(.mc-node-edit-panel) {
+  z-index: 10000 !important;
+}
+
+.mc-node-edit-panel {
+  z-index: 10001 !important;
+  transform-origin: top center;
+  animation: mc-node-edit-panel-in 260ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.mc-node-edit-panel.mc-node-inline-edit-panel {
+  animation-name: mc-node-inline-edit-panel-in;
+}
+
+.mc-node-edit-panel.mc-node-screen-space-panel {
+  z-index: 10040 !important;
+  transform: none !important;
+  animation-name: mc-node-screen-edit-panel-in;
+}
+
+.mc-node-edit-panel input,
+.mc-node-edit-panel textarea,
+.mc-node-edit-panel button,
+.mc-node-edit-panel span,
+.mc-node-edit-panel label {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.mc-node-screen-space-panel.mc-music-edit-panel {
+  background:
+    linear-gradient(180deg, rgba(18, 20, 25, 0.74), rgba(7, 9, 12, 0.7)),
+    rgba(8, 10, 13, 0.66) !important;
+  backdrop-filter: blur(18px) saturate(1.14) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.14) !important;
+}
+
+.mc-node-screen-space-panel.mc-music-edit-panel .mc-node-frost-header {
+  background: rgba(12, 14, 20, 0.18);
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.mc-node-screen-space-panel.mc-music-edit-panel .mc-node-frost-surface,
+.mc-node-screen-space-panel.mc-music-edit-panel .mc-node-frost-strip,
+.mc-node-screen-space-panel.mc-music-edit-panel .glass-input-surface,
+.mc-node-screen-space-panel.mc-music-edit-panel .glass-input-surface:focus-within {
+  background: rgba(13, 15, 19, 0.5) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.14),
+    0 10px 28px rgba(0, 0, 0, 0.12) !important;
+  backdrop-filter: blur(10px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.1) !important;
+}
+
+.mc-node-generating-pulse {
+  will-change: box-shadow;
+  animation: mc-node-generating-pulse 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.mc-node-generating-fade {
+  will-change: opacity;
+  animation: mc-node-generating-fade 3.4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+.mc-node-logo-relief {
+  opacity: 0.68;
+  filter:
+    drop-shadow(-1px -1px 0 rgba(255, 255, 255, 0.18))
+    drop-shadow(2px 3px 8px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes mc-node-edit-panel-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0 round 16px);
+    transform: translateX(-50%) translateY(-10px) scaleY(0.92);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 16px);
+    transform: translateX(-50%) translateY(0) scaleY(1);
+  }
+}
+
+@keyframes mc-node-inline-edit-panel-in {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0 round 16px);
+    transform: translateY(-10px) scaleY(0.92);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 16px);
+    transform: none;
+  }
+}
+
+@keyframes mc-topaz-expand-center-in {
+  from {
+    opacity: 0;
+    clip-path: inset(48% 48% 48% 48% round 16px);
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0 round 16px);
+    transform: scale(1);
+  }
+}
+
+@keyframes mc-node-screen-edit-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mc-node-generating-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 0 18px rgba(255, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      0 0 34px rgba(255, 255, 255, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  }
+}
+
+@keyframes mc-node-generating-fade {
+  0%,
+  100% {
+    opacity: 0.42;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 入场/出场：与 :root --mc-dur-* 一致，供组件 className 使用 */
+.mc-dur-9f {
+  transition-duration: var(--mc-dur-9f);
+}
+.mc-dur-12f {
+  transition-duration: var(--mc-dur-12f);
+}
+.mc-dur-30f {
+  transition-duration: var(--mc-dur-30f);
+}
+.mc-dur-34f {
+  transition-duration: var(--mc-dur-34f);
+}
+.mc-dur-42f {
+  transition-duration: var(--mc-dur-42f);
+}
+.mc-delay-9f {
+  transition-delay: var(--mc-dur-9f);
+}
+
+button,
+[role="button"],
+.react-flow__controls-button,
+.react-flow__handle,
+.glass-input-surface,
+.mention-token,
+.react-flow__edge-path {
+  transition:
+    transform var(--mc-dur-11f) var(--mc-ease-pop),
+    background-color var(--mc-dur-11f) ease,
+    border-color var(--mc-dur-11f) ease,
+    color var(--mc-dur-11f) ease,
+    opacity var(--mc-dur-11f) ease,
+    box-shadow var(--mc-dur-13f) ease,
+    filter var(--mc-dur-13f) ease;
+}
+
+button:not(:disabled):hover,
+[role="button"]:hover,
+.react-flow__controls-button:hover {
+  transform: translateY(-1px) scale(1.015);
+}
+
+button:not(:disabled):active,
+[role="button"]:active,
+.react-flow__controls-button:active {
+  transform: translateY(0) scale(0.975);
+  transition-duration: var(--mc-dur-5f);
+}
+
+.glass-input-surface:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-1px);
+}
+
+.glass-input-surface:focus-within {
+  transform: none;
+}
+
+.react-flow__node > div {
+  transition:
+    transform var(--mc-dur-13f) var(--mc-ease-pop),
+    border-color var(--mc-dur-11f) ease,
+    background-color var(--mc-dur-11f) ease,
+    box-shadow var(--mc-dur-13f) ease;
+}
+
+/* 悬停仅用边框/阴影提示，不用 scale：连线点在壳内，避免拖拽时 hover 失效导致视觉收缩 */
+.react-flow__node:not(.dragging):hover > div.mc-node-glass-shell {
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  box-shadow:
+    0 30px 82px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.11),
+    0 0 40px rgba(255, 255, 255, 0.12);
+}
+
+.react-flow__node:not(.dragging):hover > div:not(.mc-node-glass-shell) {
+  border-color: rgba(255, 255, 255, 0.26);
+  box-shadow:
+    0 24px 68px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 0 36px rgba(255, 255, 255, 0.1);
+}
+
+/* 多选 / 单选：悬停时仍保持选中柔光，避免被通用 hover 压掉 */
+.react-flow__node.selected:not(.dragging):hover > div.mc-node-glass-shell {
+  border-color: rgba(255, 255, 255, 0.52) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 0 28px rgba(255, 255, 255, 0.24),
+    0 0 56px rgba(255, 255, 255, 0.12),
+    0 0 88px rgba(255, 255, 255, 0.07),
+    0 30px 82px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.19);
+}
+
+.react-flow__node.selected:not(.dragging):hover > div:not(.mc-node-glass-shell) {
+  border-color: rgba(255, 255, 255, 0.48) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 26px rgba(255, 255, 255, 0.2),
+    0 0 48px rgba(255, 255, 255, 0.09),
+    0 24px 68px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.react-flow__node.selected:not(.dragging) > div {
+  animation: mc-soft-flash var(--mc-dur-22f) var(--mc-ease-pop);
+}
+
+.mention-token:hover {
+  transform: translateY(-1px);
+  color: rgba(255, 255, 255, 0.98);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3),
+    0 8px 22px rgba(0, 0, 0, 0.2);
+}
+
+.flow-drag-performance.is-flow-moving-nodes button,
+.flow-drag-performance.is-flow-moving-nodes [role="button"],
+.flow-drag-performance.is-flow-moving-nodes .glass-input-surface,
+.flow-drag-performance.is-flow-moving-nodes .react-flow__node > div,
+.flow-drag-performance.is-flow-moving-nodes .mc-node-expanded,
+.flow-drag-performance.is-flow-moving-nodes .mc-node-compact {
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* ========== 画布编辑页：省 GPU 模式（默认推荐核显） ========== */
+.mc-editor-gpu-lite [class*="backdrop-blur"],
+.mc-editor-gpu-lite .backdrop-blur-sm,
+.mc-editor-gpu-lite .backdrop-blur-md,
+.mc-editor-gpu-lite .backdrop-blur-xl,
+.mc-editor-gpu-lite .backdrop-blur-2xl,
+.mc-editor-gpu-lite .backdrop-blur-3xl {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-editor-gpu-lite .glass-input-surface,
+.mc-editor-gpu-lite .glass-input-surface:focus-within {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-editor-gpu-lite .react-flow__edge:hover:not(.mc-edge-dissolving) .react-flow__edge-path {
+  filter: none !important;
+}
+
+.mc-editor-gpu-lite .react-flow__minimap {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-editor-gpu-lite .mc-canvas-dot-grid {
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.14) var(--mc-dot-core-radius, 1px),
+    rgba(255, 255, 255, 0.05) var(--mc-dot-soft-radius, 1.35px),
+    transparent var(--mc-dot-edge-radius, 1.75px)
+  );
+  background-size: 28px 28px;
+}
+
+.mc-editor-gpu-lite .mc-canvas-shell::before,
+.mc-editor-gpu-lite .mc-canvas-shell::after {
+  opacity: 0.42;
+}
+
+.mc-editor-gpu-lite .react-flow__node:not(.dragging):hover > div:not(.mc-node-glass-shell) {
+  transform: none !important;
+}
+
+.mc-editor-gpu-lite
+  .react-flow__node.selected:not(.dragging)
+  > div:not(.mc-node-expanded):not(.mc-node-compact) {
+  animation: none !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node > div:not(.mc-node-glass-shell):not(.mc-node-expanded) {
+  background: rgba(22, 24, 26, 0.14) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32) !important;
+}
+
+.react-flow__node > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.react-flow__node.selected > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.react-flow__node:not(.dragging):hover > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.react-flow__node.selected:not(.dragging):hover > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-editor-gpu-lite .react-flow__node > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-editor-gpu-lite .react-flow__node:not(.dragging):hover > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-editor-gpu-lite .react-flow__node.selected:not(.dragging):hover > div.mc-node-edit-anchor.mc-material-edit-anchor {
+  overflow: visible !important;
+  border-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  animation: none !important;
+}
+
+/* 展开节点在 GPU-lite 模式下保持毛玻璃效果 */
+.mc-editor-gpu-lite .react-flow__node .mc-node-expanded {
+  background: rgba(18, 20, 24, 0.38) !important;
+  backdrop-filter: blur(24px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3) !important;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node > div.mc-node-glass-shell {
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: rgba(18, 20, 24, 0.38) !important;
+  backdrop-filter: blur(14px) saturate(1.12) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.12) !important;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+/* 展开节点：增强磨砂（与默认 mc-node-expanded 一致） */
+.mc-editor-gpu-lite .react-flow__node > div.mc-node-glass-shell.mc-node-expanded {
+  backdrop-filter: blur(24px) saturate(1.3) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.3) !important;
+  background: rgba(18, 20, 24, 0.38) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node.selected > div.mc-node-glass-shell {
+  border-color: rgba(255, 255, 255, 0.46) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 22px rgba(255, 255, 255, 0.18),
+    0 0 44px rgba(255, 255, 255, 0.09),
+    0 18px 48px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node.selected > div:not(.mc-node-glass-shell) {
+  border-color: rgba(255, 255, 255, 0.38) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 18px rgba(255, 255, 255, 0.14),
+    0 10px 28px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-expanded .glass-input-surface,
+.mc-editor-gpu-lite .react-flow__node .mc-node-expanded .glass-input-surface:focus-within {
+  background: rgba(14, 16, 22, 0.04) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-frost-surface,
+.mc-editor-gpu-lite .react-flow__node .mc-node-frost-strip,
+.mc-editor-gpu-lite .react-flow__node .mc-node-frost-media-well,
+.mc-editor-gpu-lite .react-flow__node .mc-node-frost-thumb {
+  backdrop-filter: blur(10px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(1.08) !important;
+}
+
+/* 展开节点内的 frost 元素恢复磨砂效果 */
+.mc-editor-gpu-lite .react-flow__node .mc-node-expanded .mc-node-frost-surface,
+.mc-editor-gpu-lite .react-flow__node .mc-node-expanded .mc-node-frost-strip,
+.mc-editor-gpu-lite .react-flow__node .mc-node-expanded .mc-node-frost-media-well,
+.mc-editor-gpu-lite .react-flow__node .mc-node-expanded .mc-node-frost-thumb {
+  backdrop-filter: blur(12px) saturate(1.12) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(1.12) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-frost-surface {
+  background: rgba(12, 14, 20, 0.012) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-frost-strip {
+  background: rgba(18, 20, 26, 0.05) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-frost-media-well {
+  background: rgba(8, 10, 14, 0.06) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-frost-thumb {
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-compact-glass,
+.mc-editor-gpu-lite .react-flow__node .mc-node-compact-glass-body {
+  backdrop-filter: blur(11px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(11px) saturate(1.1) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-compact-glass {
+  background: rgba(16, 18, 24, 0.52) !important;
+}
+
+.mc-editor-gpu-lite .react-flow__node .mc-node-compact-glass-body {
+  background: rgba(10, 12, 18, 0.45) !important;
+}
+
+.mc-editor-gpu-lite .mc-ref-icon-button,
+.mc-editor-gpu-lite .mc-ref-share-button,
+.mc-editor-gpu-lite .mc-ref-panel {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-editor-gpu-lite .mention-token:hover {
+  transform: none !important;
+}
+
+/*
+ * 画布节点内 .glass-input-surface（Select 触发器、Mention 外壳等）：
+ * 必须放在样式表后部 + 提高特异性，否则 Tailwind 工具类会盖住 globals 里的浅色底，点阵仍被挡死。
+ */
+.mc-canvas-shell .mc-react-flow .react-flow__node .glass-input-surface,
+.mc-canvas-shell .mc-react-flow .react-flow__node .glass-input-surface:focus-within,
+.mc-canvas-shell.mc-canvas-performance .mc-react-flow .react-flow__node .glass-input-surface,
+.mc-canvas-shell.mc-canvas-performance .mc-react-flow .react-flow__node .glass-input-surface:focus-within {
+  background: rgba(8, 10, 14, 0.09) !important;
+  background-color: rgba(8, 10, 14, 0.09) !important;
+  backdrop-filter: blur(8px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(1.08) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    0 6px 16px rgba(0, 0, 0, 0.08) !important;
+}
+
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .glass-input-surface,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .glass-input-surface:focus-within {
+  background: rgba(8, 10, 14, 0.09) !important;
+  background-color: rgba(8, 10, 14, 0.09) !important;
+  backdrop-filter: blur(8px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(8px) saturate(1.08) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded {
+  background: rgba(12, 14, 18, 0.94) !important;
+  transform: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-surface,
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-strip,
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-media-well,
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .glass-input-surface,
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .glass-input-surface:focus-within,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-surface,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-strip,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .mc-node-frost-media-well,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .glass-input-surface,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-topaz-enhance-node.mc-node-expanded .glass-input-surface:focus-within {
+  background: rgba(13, 15, 19, 0.72) !important;
+  background-color: rgba(13, 15, 19, 0.72) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-wave-node,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel.mc-node-expanded,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-wave-node,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel.mc-node-expanded {
+  background: rgba(8, 10, 13, 0.95) !important;
+  background-color: rgba(8, 10, 13, 0.95) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel .mc-node-frost-surface,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel .mc-node-frost-strip,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel .glass-input-surface,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel .glass-input-surface:focus-within,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel .mc-node-frost-surface,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel .mc-node-frost-strip,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel .glass-input-surface,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-edit-panel .glass-input-surface:focus-within {
+  background: rgba(13, 15, 19, 0.78) !important;
+  background-color: rgba(13, 15, 19, 0.78) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-canvas-shell .mc-react-flow .react-flow__node.selected > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-canvas-shell .mc-react-flow .react-flow__node:not(.dragging):hover > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-canvas-shell .mc-react-flow .react-flow__node.selected:not(.dragging):hover > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node.selected > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node:not(.dragging):hover > div.mc-node-edit-anchor.mc-material-edit-anchor,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node.selected:not(.dragging):hover > div.mc-node-edit-anchor.mc-material-edit-anchor {
+  overflow: visible !important;
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  animation: none !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-field,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-field:focus-within,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-select,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-field,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-field:focus-within,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-select {
+  background: rgba(8, 10, 14, 0.88) !important;
+  background-color: rgba(8, 10, 14, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 8px 22px rgba(0, 0, 0, 0.18) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  color: rgb(244, 244, 245) !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-field .mention-rich-editor,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-select span,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-field .mention-rich-editor,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-select span {
+  color: rgb(244, 244, 245) !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-field .mention-token,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node .mc-agent-chat-node .mc-agent-clear-field .mention-token {
+  transform: none !important;
+}
+
+/* Panorama prompt supplement: avoid blurred rich text inside ReactFlow scale/compositing. */
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement,
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement:hover,
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement:focus-within,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement:hover,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement:focus-within {
+  background: rgba(7, 10, 14, 0.9) !important;
+  background-color: rgba(7, 10, 14, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.065),
+    0 8px 20px rgba(0, 0, 0, 0.18) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+  transform: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement .mention-rich-editor,
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement > .pointer-events-none,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement .mention-rich-editor,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement > .pointer-events-none {
+  color: rgba(226, 232, 240, 0.96) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 1.45 !important;
+  filter: none !important;
+  transform: none !important;
+  text-shadow: none !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement > .pointer-events-none,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement > .pointer-events-none {
+  color: rgba(148, 163, 184, 0.76) !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement .mention-token,
+.mc-editor-gpu-lite .mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-panorama-node .mc-panorama-prompt-supplement .mention-token {
+  filter: none !important;
+  transform: none !important;
+  text-shadow: none !important;
+}
+
+/* Every visible node keeps the same translucent backdrop treatment while moving. */
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-node-glass-shell:not(:has(.mc-node-compact-glass)),
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-node-compact-glass,
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-node-media-only-surface,
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-music-wave-node,
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-storyboard-node,
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-panorama-node,
+.mc-node-edit-panel {
+  backdrop-filter: blur(16px) saturate(1.16) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.16) !important;
+}
+
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-node-compact-glass {
+  background: rgba(16, 18, 24, 0.38) !important;
+}
+
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-node-media-only-surface {
+  background: rgba(8, 10, 14, 0.28) !important;
+}
+
+.mc-canvas-shell:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  :is(.mc-music-wave-node, .mc-storyboard-node, .mc-panorama-node, .mc-topaz-enhance-node),
+.mc-node-edit-panel {
+  background-color: rgba(10, 12, 16, 0.72) !important;
+}
+
+/* Canvas nodes use neutral opaque shells so moving or zooming never resamples the canvas behind them. */
+.mc-canvas-shell .mc-react-flow .react-flow__node,
+.mc-canvas-shell .mc-react-flow .react-flow__node *,
+.mc-node-screen-space-panel,
+.mc-node-screen-space-panel * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node > div.mc-node-glass-shell,
+.mc-canvas-shell .mc-react-flow .react-flow__node > div:not(.mc-node-edit-anchor),
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-compact-glass,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-music-wave-node,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-storyboard-node,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-panorama-node,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-topaz-enhance-node,
+.mc-node-edit-panel {
+  background: rgb(28, 28, 28) !important;
+  background-color: rgb(28, 28, 28) !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-media-only-surface,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-compact-glass-body,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-frost-media-well {
+  background: rgb(22, 22, 22) !important;
+  background-color: rgb(22, 22, 22) !important;
+}
+
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-frost-surface,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-frost-strip,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-frost-thumb,
+.mc-canvas-shell .mc-react-flow .react-flow__node .mc-node-frost-header {
+  background: rgb(17, 19, 23) !important;
+  background-color: rgb(17, 19, 23) !important;
+}
+
+/* Idle, low-zoom and GPU-lite states must not restore translucent node shells. */
+.mc-editor-gpu-lite
+  .mc-canvas-shell.mc-canvas-performance
+  .mc-react-flow
+  .react-flow__node
+  :is(.mc-node-glass-shell:not(:has(.mc-node-compact-glass)), .mc-node-compact-glass, .mc-music-wave-node, .mc-storyboard-node, .mc-panorama-node, .mc-topaz-enhance-node),
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp]
+  .mc-react-flow
+  .react-flow__node
+  :is(.mc-node-glass-shell:not(:has(.mc-node-compact-glass)), .mc-node-compact-glass, .mc-music-wave-node, .mc-storyboard-node, .mc-panorama-node, .mc-topaz-enhance-node),
+.mc-canvas-shell.mc-canvas-performance:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  :is(.mc-node-glass-shell:not(:has(.mc-node-compact-glass)), .mc-node-compact-glass, .mc-music-wave-node, .mc-storyboard-node, .mc-panorama-node, .mc-topaz-enhance-node),
+.mc-node-edit-panel {
+  opacity: 1 !important;
+  background: rgb(28, 28, 28) !important;
+  background-color: rgb(28, 28, 28) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.mc-editor-gpu-lite
+  .mc-canvas-shell.mc-canvas-performance
+  .mc-react-flow
+  .react-flow__node
+  .mc-node-media-only-surface,
+.mc-canvas-shell.mc-canvas-performance[data-mc-zoom-sharp]
+  .mc-react-flow
+  .react-flow__node
+  .mc-node-media-only-surface,
+.mc-canvas-shell.mc-canvas-performance:not(.is-flow-moving-pan)
+  .mc-react-flow
+  .react-flow__node
+  .mc-node-media-only-surface {
+  opacity: 1 !important;
+  background: rgb(22, 22, 22) !important;
+  background-color: rgb(22, 22, 22) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

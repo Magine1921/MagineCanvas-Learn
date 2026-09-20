@@ -1,0 +1,56 @@
+# Dependencies
+/node_modules/
+/.pnp/
+.pnp.*
+
+# Next.js and Cloudflare build output
+/.next/
+/out/
+/.open-next/
+/.wrangler/
+/.cloudflare-trial-static/
+
+# Electron and release output
+/electron/out/
+/dist/
+/dist-*/
+/release/
+
+# Tests and reports
+/coverage/
+/playwright-report/
+/test-results/
+
+# Local runtime data and caches
+/.runtime/
+/.magine-cache/
+/magine-cache/
+/MagineCanvas-UserData/
+/.codex-logs/
+/.codex-run/
+/.codex-runtime/
+
+# Environment files (keep the public template)
+.env
+.env.*
+!.env.example
+
+# Logs and generated metadata
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+next-env.d.ts
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Editors and operating systems
+/.vscode/
+/.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini

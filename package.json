@@ -1,0 +1,184 @@
+{
+  "name": "magine-canvas-learn",
+  "version": "0.2.2",
+  "private": true,
+  "description": "Magine Canvas learning source edition",
+  "author": "Magine",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Magine1921/MagineCanvas-Learn.git"
+  },
+  "homepage": "https://github.com/Magine1921/MagineCanvas-Learn#readme",
+  "bugs": {
+    "url": "https://github.com/Magine1921/MagineCanvas-Learn/issues"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "npm": ">=10"
+  },
+  "packageManager": "npm@11.11.0",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "postinstall": "node scripts/sync-onnx-runtime-assets.cjs",
+    "dev": "cross-env NEXT_PUBLIC_MAGINE_LEARNING_EDITION=1 PORT=3100 next dev --webpack -H 127.0.0.1 -p 3100",
+    "dev:desktop": "concurrently -k -n next,electron \"cross-env NEXT_PUBLIC_MAGINE_LEARNING_EDITION=1 ELECTRON_NEXT_PORT=3100 node electron/run-dev-next.cjs\" \"wait-on http://127.0.0.1:3100 && cross-env NEXT_PUBLIC_MAGINE_LEARNING_EDITION=1 ELECTRON_DEV=1 ELECTRON_DEV_URL=http://127.0.0.1:3100/ ELECTRON_NEXT_PORT=3100 node electron/start-electron.cjs .\"",
+    "dev:turbo": "cross-env NEXT_PUBLIC_MAGINE_LEARNING_EDITION=1 next dev -H 127.0.0.1 -p 3100",
+    "build": "cross-env NEXT_PUBLIC_MAGINE_LEARNING_EDITION=1 node scripts/next-build-filter-warnings.cjs",
+    "build:web-full": "cross-env MAGINE_CLOUDFLARE_BUILD=1 npm run build && node scripts/materialize-cloudflare-next-links.cjs && node scripts/patch-opennext-windows-paths.cjs && cross-env MAGINE_CLOUDFLARE_BUILD=1 opennextjs-cloudflare build --skipNextBuild && node scripts/prune-cloudflare-assets.cjs",
+    "build:web-trial": "cross-env NEXT_PUBLIC_MAGINE_WEB_TRIAL=1 npm run build:web-full",
+    "preview:web-full": "cross-env MAGINE_CLOUDFLARE_BUILD=1 opennextjs-cloudflare preview",
+    "deploy:web-full": "npm run build:web-full && cross-env MAGINE_CLOUDFLARE_BUILD=1 opennextjs-cloudflare deploy",
+    "deploy:web-trial": "npm run build:web-trial && cross-env MAGINE_CLOUDFLARE_BUILD=1 opennextjs-cloudflare deploy",
+    "start": "next start",
+    "test:agent": "node --experimental-strip-types --test tests/*.test.mjs",
+    "lint": "eslint",
+    "electron:dev": "cross-env ELECTRON_DEV=1 node electron/start-electron.cjs .",
+    "build:electron": "npm run build && node scripts/prepare-electron-standalone.cjs",
+    "dist:win": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false npm run build:electron && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --win",
+    "dist:win:dir": "cross-env CSC_IDENTITY_AUTO_DISCOVERY=false npm run build:electron && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder --win --dir",
+    "pack:source": "node scripts/pack-source.cjs"
+  },
+  "dependencies": {
+    "@alicloud/imageenhan20190930": "^2.0.10",
+    "@alicloud/openapi-client": "^0.4.15",
+    "@alicloud/openapi-core": "^1.0.8",
+    "@alicloud/tea-util": "^1.4.11",
+    "@alicloud/videoenhan20200320": "^4.0.0",
+    "@anthropic-ai/sdk": "^0.97.1",
+    "@base-ui/react": "^1.4.1",
+    "@darabonba/typescript": "^1.0.5",
+    "@langchain/core": "^1.2.4",
+    "@langchain/langgraph": "^1.4.8",
+    "@vladmandic/face-api": "^1.7.15",
+    "archiver": "^8.0.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cos-nodejs-sdk-v5": "^3.0.0",
+    "electron-updater": "^6.8.9",
+    "ffmpeg-static": "^5.3.0",
+    "formidable": "^3.5.4",
+    "lucide-react": "^1.14.0",
+    "mammoth": "^1.12.1",
+    "NeteaseCloudMusicApi": "4.32.0",
+    "next": "16.3.5",
+    "node-forge": "^1.4.0",
+    "onnxruntime-web": "^1.26.0",
+    "pixi.js": "^8.18.1",
+    "qrcode": "^1.5.4",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "react-resizable-panels": "^3.0.6",
+    "reactflow": "^11.11.4",
+    "sharp": "0.35.4",
+    "sherpa-onnx-node": "^1.13.3",
+    "tailwind-merge": "^3.5.0",
+    "tencentcloud-sdk-nodejs-mps": "^4.1.314",
+    "three": "^0.170.0",
+    "docx": "9.7.1",
+    "zustand": "^5.0.13"
+  },
+  "devDependencies": {
+    "@electron/fuses": "^2.1.3",
+    "@opennextjs/cloudflare": "^1.20.1",
+    "@tailwindcss/postcss": "^4",
+    "@types/archiver": "^7.0.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.184.1",
+    "concurrently": "^10.0.3",
+    "cross-env": "^10.1.0",
+    "electron": "^43.1.1",
+    "electron-builder": "^26.15.3",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.5",
+    "postcss-backdrop-filter-fix": "file:scripts/postcss-backdrop-filter-fix",
+    "rcedit": "^5.0.2",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "wait-on": "^8.0.5",
+    "wrangler": "^4.112.0"
+  },
+  "build": {
+    "appId": "com.magine.canvas.learn",
+    "productName": "MagineCanvas-Learn",
+    "electronUpdaterCompatibility": ">=2.16",
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://maginecanvas-update.magine1921.workers.dev/learn/stable"
+      }
+    ],
+    "npmRebuild": false,
+    "icon": "build/icon.ico",
+    "afterPack": "scripts/embed-win-icon.cjs",
+    "directories": {
+      "output": "dist-installer-learn"
+    },
+    "files": [
+      "electron/main.cjs",
+      "electron/preload.cjs",
+      "electron/splash.html",
+      "electron/update-manager.cjs",
+      "electron/dreamina-cli.cjs",
+      "scripts/dreamina-cli-core.cjs",
+      "electron/magine-cache-root.cjs",
+      "electron/user-data-protection.cjs",
+      "electron/media-batch-export.cjs",
+      "build/icon.png",
+      "build/icon.ico",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "electron/out/next-standalone",
+        "to": "next-standalone",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "**/node_modules/sharp/**/*",
+      "**/node_modules/@img/**/*",
+      "**/node_modules/sherpa-onnx-node/**/*",
+      "**/node_modules/sherpa-onnx-win-x64/**/*",
+      "**/node_modules/ffmpeg-static/**/*"
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "deleteAppDataOnUninstall": false,
+      "include": "build/installer.nsh",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    }
+  },
+  "overrides": {
+    "@xmldom/xmldom": "0.8.15",
+    "axios": "1.20.0",
+    "baseline-browser-mapping": "2.11.25",
+    "form-data": "4.0.6",
+    "js-yaml": "4.3.2",
+    "music-metadata": "11.15.0",
+    "postcss": "8.5.28",
+    "protobufjs": "7.6.5",
+    "uuid": "11.1.1"
+  }
+}

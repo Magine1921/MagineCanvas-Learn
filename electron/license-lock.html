@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magine Canvas 授权</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, "Microsoft YaHei", system-ui, sans-serif;
+      background: #080a0d;
+      color: #f1f4f6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: #080a0d;
+    }
+    .panel {
+      width: min(560px, calc(100vw - 48px));
+      padding: 30px;
+      border: 1px solid #323942;
+      border-radius: 8px;
+      background: #11151a;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .48);
+    }
+    .eyebrow { margin-bottom: 8px; color: #75808b; font-size: 12px; }
+    h1 { margin: 0; font-size: 25px; font-weight: 650; }
+    .lead { margin: 10px 0 22px; color: #9ba5af; font-size: 14px; line-height: 1.7; }
+    .device {
+      margin-bottom: 18px;
+      padding: 10px 12px;
+      border: 1px solid #2c333b;
+      border-radius: 6px;
+      background: #0b0e12;
+      color: #77828e;
+      font-size: 11px;
+      word-break: break-all;
+    }
+    .field { display: grid; gap: 7px; }
+    label { color: #a9b2bc; font-size: 12px; }
+    input {
+      width: 100%;
+      height: 44px;
+      border: 1px solid #39424c;
+      border-radius: 6px;
+      padding: 0 13px;
+      background: #090c10;
+      color: #fff;
+      outline: none;
+      font: 600 15px/1 monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    input:focus { border-color: #4b9eea; }
+    button {
+      height: 42px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      padding: 0 15px;
+      font: inherit;
+      cursor: pointer;
+    }
+    button:disabled { cursor: default; opacity: .55; }
+    .primary { width: 100%; margin-top: 10px; background: #238fe9; color: #fff; }
+    .secondary { background: #20262d; border-color: #343d47; color: #edf1f4; }
+    .message {
+      display: none;
+      margin-top: 14px;
+      padding: 10px 12px;
+      border: 1px solid #6e3038;
+      border-radius: 6px;
+      background: #35171b;
+      color: #ffbcc3;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .message.show { display: block; }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0;
+      color: #646f7a;
+      font-size: 12px;
+    }
+    .divider::before, .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #293039;
+    }
+    .pay { display: none; }
+    .pay.show { display: block; }
+    .pay-grid { display: grid; grid-template-columns: 160px 1fr; gap: 18px; align-items: center; }
+    .qr {
+      width: 160px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid #343c45;
+      border-radius: 6px;
+      background: #fff;
+      color: #15181c;
+      font-size: 12px;
+      text-align: center;
+      padding: 10px;
+    }
+    .qr img { width: 100%; height: 100%; object-fit: contain; }
+    .pay-copy { color: #98a3ae; font-size: 13px; line-height: 1.65; }
+    .amount { margin: 4px 0 12px; color: #fff; font-size: 22px; font-weight: 700; }
+    .pay-actions { display: flex; gap: 8px; }
+    .status { margin-top: 14px; color: #7f8b96; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <div class="eyebrow">MAGINE CANVAS LICENSE</div>
+    <h1 id="title">需要授权</h1>
+    <p class="lead">此安装包已启用设备授权。请输入购买后获得的授权码，或通过已配置的支付渠道完成购买。</p>
+    <div id="device" class="device">正在读取设备信息...</div>
+
+    <form id="activation-form">
+      <div class="field">
+        <label for="license-code">授权码</label>
+        <input id="license-code" placeholder="MC-XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false">
+      </div>
+      <button id="activate" class="primary" type="submit">激活并进入画布</button>
+    </form>
+    <div id="message" class="message"></div>
+
+    <div id="pay-divider" class="divider" hidden>扫码购买</div>
+    <section id="pay" class="pay">
+      <div class="pay-grid">
+        <div id="qr" class="qr">等待创建订单</div>
+        <div class="pay-copy">
+          <div id="product">Magine Canvas</div>
+          <div id="amount" class="amount"></div>
+          <div>付款结果由云端签名回调确认，客户端不会自行判断付款成功。</div>
+          <div class="pay-actions">
+            <button id="create-order" class="secondary" type="button">创建支付订单</button>
+            <button id="open-checkout" class="secondary" type="button" disabled>打开支付页面</button>
+          </div>
+        </div>
+      </div>
+      <div id="pay-status" class="status"></div>
+    </section>
+  </main>
+
+  <script>
+    const bridge = window.magineDesktop;
+    const state = { checkoutUrl: '', pollTimer: 0 };
+    const $ = (selector) => document.querySelector(selector);
+
+    function showMessage(text) {
+      const node = $('#message');
+      node.textContent = text || '';
+      node.classList.toggle('show', Boolean(text));
+    }
+
+    function setBusy(busy) {
+      $('#activate').disabled = busy;
+      $('#create-order').disabled = busy;
+    }
+
+    async function launch() {
+      const result = await bridge.licenseLaunchApp();
+      if (!result?.ok) showMessage(result?.message || '无法进入画布。');
+    }
+
+    function showPayment(config, pending) {
+      if (!config?.paymentEnabled && !pending) return;
+      $('#pay-divider').hidden = false;
+      $('#pay').classList.add('show');
+      $('#product').textContent = config?.product || 'Magine Canvas';
+      if (Number.isFinite(config?.amountCents)) {
+        $('#amount').textContent = new Intl.NumberFormat('zh-CN', {
+          style: 'currency',
+          currency: config.currency || 'CNY',
+        }).format(config.amountCents / 100);
+      }
+      if (pending) {
+        applyOrder(pending);
+        beginPolling();
+      }
+    }
+
+    function applyOrder(order) {
+      state.checkoutUrl = order.checkoutUrl || '';
+      $('#open-checkout').disabled = !state.checkoutUrl;
+      if (order.qrCodeUrl) {
+        const image = document.createElement('img');
+        image.alt = '支付二维码';
+        image.src = order.qrCodeUrl;
+        $('#qr').replaceChildren(image);
+      } else {
+        $('#qr').textContent = state.checkoutUrl
+          ? '点击右侧按钮打开支付页面'
+          : '等待管理员确认收款';
+      }
+      $('#pay-status').textContent = order.orderId ? `订单号：${order.orderId}` : '';
+    }
+
+    async function checkOrder() {
+      const result = await bridge.licenseCheckOrder();
+      if (!result?.ok) {
+        $('#pay-status').textContent = result?.message || '订单查询失败';
+        return;
+      }
+      if (result.active || result.status === 'fulfilled') {
+        clearInterval(state.pollTimer);
+        $('#pay-status').textContent = '付款确认完成，正在进入画布...';
+        if (result.licenseCode) $('#license-code').value = result.licenseCode;
+        await launch();
+        return;
+      }
+      applyOrder(result);
+      $('#pay-status').textContent = `等待付款确认，订单号：${result.orderId || ''}`;
+    }
+
+    function beginPolling() {
+      clearInterval(state.pollTimer);
+      state.pollTimer = setInterval(checkOrder, 3000);
+      void checkOrder();
+    }
+
+    $('#activation-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      showMessage('');
+      setBusy(true);
+      try {
+        const result = await bridge.licenseActivate($('#license-code').value);
+        if (!result?.active) {
+          showMessage(result?.message || '激活失败。');
+          return;
+        }
+        await launch();
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    $('#create-order').addEventListener('click', async () => {
+      showMessage('');
+      setBusy(true);
+      try {
+        const order = await bridge.licenseCreateOrder();
+        if (!order?.ok) {
+          showMessage(order?.message || '订单创建失败。');
+          return;
+        }
+        applyOrder(order);
+        beginPolling();
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    $('#open-checkout').addEventListener('click', () => {
+      if (state.checkoutUrl) void bridge.licenseOpenCheckout(state.checkoutUrl);
+    });
+
+    window.addEventListener('beforeunload', () => clearInterval(state.pollTimer));
+
+    (async () => {
+      if (!bridge?.licenseStatus) {
+        showMessage('当前安装包缺少授权桥接组件。');
+        return;
+      }
+      const status = await bridge.licenseStatus();
+      $('#device').textContent = `设备指纹：${status.deviceHash || '未知'}`;
+      $('#title').textContent = status.product ? `${status.product} 授权` : '需要授权';
+      if (status.message) showMessage(status.message);
+      if (status.active) {
+        await launch();
+        return;
+      }
+      showPayment(status.payment, status.pendingOrder);
+    })();
+  </script>
+</body>
+</html>

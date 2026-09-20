@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Magine Canvas abstract background">
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#03060a"/>
+      <stop offset="0.48" stop-color="#07111e"/>
+      <stop offset="1" stop-color="#050609"/>
+    </linearGradient>
+    <radialGradient id="blue" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#1677bf" stop-opacity="0.82"/>
+      <stop offset="0.45" stop-color="#0d4c87" stop-opacity="0.44"/>
+      <stop offset="1" stop-color="#06101c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="orange" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#ee743a" stop-opacity="0.88"/>
+      <stop offset="0.42" stop-color="#a83e20" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#240c08" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="54"/>
+    </filter>
+    <filter id="contour" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.008" numOctaves="2" seed="23" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="34" xChannelSelector="R" yChannelSelector="B"/>
+    </filter>
+    <pattern id="topography" width="190" height="150" patternUnits="userSpaceOnUse">
+      <path d="M-25 38C20 5 80 7 126 33s89 29 121-3M-30 68C19 31 77 36 122 59s89 26 128-11M-28 102C25 65 78 70 119 90s83 31 133-7M-20 132C32 100 79 104 124 124s83 25 123-2" fill="none" stroke="#7d91a7" stroke-opacity="0.12" stroke-width="1.2"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#base)"/>
+  <ellipse cx="430" cy="390" rx="430" ry="310" fill="url(#blue)" filter="url(#soft)"/>
+  <ellipse cx="1100" cy="595" rx="460" ry="350" fill="url(#orange)" filter="url(#soft)"/>
+  <ellipse cx="1315" cy="195" rx="310" ry="220" fill="url(#blue)" opacity="0.55" filter="url(#soft)"/>
+  <g filter="url(#contour)">
+    <rect width="1600" height="900" fill="url(#topography)"/>
+    <path d="M-30 630C210 430 335 770 560 573S925 395 1108 535s320 49 530-160" fill="none" stroke="#111c28" stroke-opacity="0.74" stroke-width="2"/>
+    <path d="M-45 681C206 473 339 819 575 614S929 441 1120 579s323 43 540-165" fill="none" stroke="#111c28" stroke-opacity="0.65" stroke-width="1.7"/>
+  </g>
+  <rect width="1600" height="900" fill="none" stroke="#ffffff" stroke-opacity="0.025" stroke-width="2"/>
+</svg>

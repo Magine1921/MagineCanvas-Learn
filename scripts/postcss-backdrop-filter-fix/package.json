@@ -1,0 +1,6 @@
+{
+  "name": "postcss-backdrop-filter-fix",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.cjs"
+}

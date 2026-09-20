@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Magine Canvas symbol">
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.96"/>
+      <stop offset="0.48" stop-color="#eaeae6" stop-opacity="0.82"/>
+      <stop offset="1" stop-color="#c9cbc8" stop-opacity="0.62"/>
+    </linearGradient>
+    <filter id="relief" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="13" result="blur"/>
+      <feOffset dy="12" result="offset"/>
+      <feColorMatrix in="offset" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .48 0" result="shadow"/>
+      <feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g fill="none" stroke="url(#metal)" stroke-linecap="round" stroke-linejoin="round" filter="url(#relief)">
+    <path d="M77 300c45-92 99-138 161-138 72 0 94 93 147 93 27 0 48-18 66-52" stroke-width="39"/>
+    <path d="M61 212c29 61 70 108 126 134 51 24 94-2 126-48 31-44 58-88 138-108" stroke-width="25" stroke-opacity="0.83"/>
+  </g>
+  <circle cx="256" cy="256" r="212" fill="none" stroke="#ffffff" stroke-opacity="0.07" stroke-width="2"/>
+</svg>
